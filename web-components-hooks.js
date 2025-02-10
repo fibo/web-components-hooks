@@ -1,5 +1,5 @@
-export class WebContext extends HTMLElement {
-    static localName = 'web-context';
+export class XContext extends HTMLElement {
+    static localName = 'x-context';
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -8,17 +8,17 @@ export class WebContext extends HTMLElement {
         this.shadowRoot?.appendChild(template.content.cloneNode(true));
     }
 }
-export class WebReducer extends HTMLElement {
-    static localName = 'web-reducer';
-    static dataNonce = 'data-web-reducer-nonce';
+export class XReducer extends HTMLElement {
+    static localName = 'x-reducer';
+    static dataNonce = 'data-x-reducer-nonce';
     static findParent(initialElement) {
         let { parentElement: element } = initialElement;
         while (element) {
-            if (element.localName == WebReducer.localName) return element;
+            if (element.localName == XReducer.localName) return element;
             element = element.parentElement;
         }
         throw new Error(
-            `Parent ${WebReducer.localName} not found for ${initialElement}`
+            `Parent ${XReducer.localName} not found for ${initialElement}`
         );
     }
     #state = null;
@@ -44,7 +44,7 @@ export class WebReducer extends HTMLElement {
         this.#dataNonce++;
         const nonce = String(this.#dataNonce);
         for (const subscriber of this.#subscribers) {
-            subscriber.dataset.webReducerNonce = nonce;
+            subscriber.dataset.xReducerNonce = nonce;
         }
     }
     addSubscriber(element) {
@@ -54,9 +54,9 @@ export class WebReducer extends HTMLElement {
         this.#subscribers.delete(element);
     }
 }
-export function defineWebHooksElements() {
-    if (!customElements.get(WebContext.localName))
-        customElements.define(WebContext.localName, WebContext);
-    if (!customElements.get(WebReducer.localName))
-        customElements.define(WebReducer.localName, WebReducer);
+export function defineHooksElements() {
+    if (!customElements.get(XContext.localName))
+        customElements.define(XContext.localName, XContext);
+    if (!customElements.get(XReducer.localName))
+        customElements.define(XReducer.localName, XReducer);
 }

@@ -8,17 +8,21 @@
     </head>
     <body>
         <script type="importmap">
-            { "imports": { "web-hooks": "../web-hooks.js" } }
+            {
+                "imports": {
+                    "web-components-hooks": "../web-components-hooks.js"
+                }
+            }
         </script>
 
-        <web-reducer>
+        <x-reducer>
             <label>Counter: <counter-value></counter-value></label>
             <div>
                 <counter-button action="increment">Increment</counter-button>
                 <counter-button action="reset">Reset</counter-button>
                 <counter-button action="decrement">Decrement</counter-button>
             </div>
-        </web-reducer>
+        </x-reducer>
 
         <script type="module" src="./counter.js"></script>
     </body>

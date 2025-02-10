@@ -1,5 +1,5 @@
-export class WebContext extends HTMLElement {
-    static localName = 'web-context';
+export class XContext extends HTMLElement {
+    static localName = 'x-context';
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -22,18 +22,18 @@ export type Reducer<
     Action extends JsonValue & { type: string }
 > = (state: State, action: Action) => State;
 
-export class WebReducer extends HTMLElement {
-    static localName = 'web-reducer';
-    static dataNonce = 'data-web-reducer-nonce';
+export class XReducer extends HTMLElement {
+    static localName = 'x-reducer';
+    static dataNonce = 'data-x-reducer-nonce';
     static findParent(initialElement: HTMLElement) {
         let { parentElement: element } = initialElement;
         while (element) {
-            if (element.localName == WebReducer.localName)
-                return element as WebReducer;
+            if (element.localName == XReducer.localName)
+                return element as XReducer;
             element = element.parentElement;
         }
         throw new Error(
-            `Parent ${WebReducer.localName} not found for ${initialElement}`
+            `Parent ${XReducer.localName} not found for ${initialElement}`
         );
     }
     #state: JsonValue = null;
@@ -62,7 +62,7 @@ export class WebReducer extends HTMLElement {
         this.#dataNonce++;
         const nonce = String(this.#dataNonce);
         for (const subscriber of this.#subscribers) {
-            subscriber.dataset.webReducerNonce = nonce;
+            subscriber.dataset.xReducerNonce = nonce;
         }
     }
     addSubscriber(element: HTMLElement) {
@@ -73,19 +73,19 @@ export class WebReducer extends HTMLElement {
     }
 }
 
-/** Define web-hooks custom elements.
+/** Define web-components-hooks custom elements.
  *
- * @example Define web-hooks elements on DOM load.
+ * @example Define hooks elements on DOM load.
  *
- * import { defineWebHooksElements } from 'web-hooks';
+ * import { defineHooksElements } from 'web-components-hooks';
  *
  * addEventListener('load', () => {
- *     defineWebHooksElements();
+ *     defineHooksElements();
  * });
  */
-export function defineWebHooksElements() {
-    if (!customElements.get(WebContext.localName))
-        customElements.define(WebContext.localName, WebContext);
-    if (!customElements.get(WebReducer.localName))
-        customElements.define(WebReducer.localName, WebReducer);
+export function defineHooksElements() {
+    if (!customElements.get(XContext.localName))
+        customElements.define(XContext.localName, XContext);
+    if (!customElements.get(XReducer.localName))
+        customElements.define(XReducer.localName, XReducer);
 }

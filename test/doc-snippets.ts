@@ -1,7 +1,7 @@
-// defineWebHooksElements example
+// defineXHooksElements example
 
-import { defineWebHooksElements } from 'web-hooks';
+import { defineHooksElements } from 'web-components-hooks';
 
 addEventListener('load', () => {
-    defineWebHooksElements();
+    defineHooksElements();
 });

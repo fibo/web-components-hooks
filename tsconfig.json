@@ -14,5 +14,5 @@
     "useUnknownInCatchVariables": true
   },
   "exclude": ["./node_modules"],
-  "include": ["./web-hooks.ts", "./*/**.ts", "./*/**.js"]
+  "include": ["./web-components-hooks.ts", "./*/**.ts", "./*/**.js"]
 }

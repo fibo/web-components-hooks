@@ -1,4 +1,4 @@
-import { defineWebHooksElements, WebReducer } from 'web-hooks';
+import { defineHooksElements, XReducer } from 'web-components-hooks';
 const reducer = (state, action) => {
     console.log('action type', action.type);
     switch (action.type) {
@@ -13,7 +13,7 @@ const reducer = (state, action) => {
     }
 };
 class CounterValue extends HTMLElement {
-    static observedAttributes = [WebReducer.dataNonce];
+    static observedAttributes = [XReducer.dataNonce];
     output;
     reducer;
     constructor() {
@@ -25,14 +25,14 @@ class CounterValue extends HTMLElement {
         this.output = this.shadowRoot?.querySelector('output');
     }
     connectedCallback() {
-        this.reducer = WebReducer.findParent(this);
+        this.reducer = XReducer.findParent(this);
         this.reducer.addSubscriber(this);
     }
     disconnectedCallback() {
         this.reducer?.deleteSubscriber(this);
     }
     attributeChangedCallback(name) {
-        if (name === WebReducer.dataNonce) {
+        if (name === XReducer.dataNonce) {
             const count = this.reducer?.state;
             this.output.textContent = String(count);
         }
@@ -48,7 +48,7 @@ class CounterButton extends HTMLElement {
         this.shadowRoot?.appendChild(template.content.cloneNode(true));
     }
     connectedCallback() {
-        this.reducer = WebReducer.findParent(this);
+        this.reducer = XReducer.findParent(this);
         this.shadowRoot
             ?.querySelector('button')
             ?.addEventListener('click', this);
@@ -62,9 +62,9 @@ class CounterButton extends HTMLElement {
     }
 }
 addEventListener('load', () => {
-    defineWebHooksElements();
+    defineHooksElements();
     customElements.define('counter-button', CounterButton);
     customElements.define('counter-value', CounterValue);
-    const webReducer = document.querySelector('web-reducer');
-    webReducer.use(reducer, 0);
+    const xReducer = document.querySelector('x-reducer');
+    xReducer.use(reducer, 0);
 });

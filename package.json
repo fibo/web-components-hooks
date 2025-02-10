@@ -1,14 +1,14 @@
 {
-  "name": "web-hooks",
+  "name": "web-components-hooks",
   "version": "0.1.0",
   "type": "module",
   "description": "React-like hooks for WebComponents",
   "license": "MIT",
-  "homepage": "https://fibo.github.io/web-hooks",
-  "types": "./web-hooks.d.ts",
+  "homepage": "https://fibo.github.io/web-components-hooks",
+  "types": "./web-components-hooks.d.ts",
   "exports": {
-    "import": "./web-hooks.js",
-    "types": "./web-hooks.d.ts"
+    "import": "./web-components-hooks.js",
+    "types": "./web-components-hooks.d.ts"
   },
   "scripts": {
     "build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/fibo/web-hooks.git"
+    "url": "git://github.com/fibo/web-components-hooks.git"
   },
   "keywords": [
     "web-components",

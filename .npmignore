@@ -2,6 +2,6 @@
 DEVELOP.md
 tsconfig.json
 tsconfig.build.json
-web-hooks.ts
+web-components-hooks.ts
 examples/
 test/
