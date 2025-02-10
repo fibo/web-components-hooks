@@ -4,6 +4,7 @@
   "type": "module",
   "description": "React-like hooks for WebComponents",
   "license": "MIT",
+  "homepage": "https://fibo.github.io/web-hooks",
   "types": "./web-hooks.d.ts",
   "exports": {
     "import": "./web-hooks.js",

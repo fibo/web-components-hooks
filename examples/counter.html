@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="data:image/x-icon;base64,AA" />
+        <meta name="viewport" content="width=device-width" />
+        <title>web-hooks counter</title>
+    </head>
+    <body>
+        <script type="importmap">
+            { "imports": { "web-hooks": "../web-hooks.js" } }
+        </script>
+
+        <web-reducer>
+            <label>Counter: <counter-value></counter-value></label>
+            <div>
+                <counter-button action="increment">Increment</counter-button>
+                <counter-button action="reset">Reset</counter-button>
+                <counter-button action="decrement">Decrement</counter-button>
+            </div>
+        </web-reducer>
+
+        <script type="module" src="./counter.js"></script>
+    </body>
+</html>
