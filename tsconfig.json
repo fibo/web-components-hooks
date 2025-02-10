@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowUnreachableCode": false,
+    "baseUrl": ".",
+    "checkJs": true,
+    "noEmit": true,
+    "noErrorTruncation": false,
+    "noUncheckedSideEffectImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": { "web-hooks": ["./src/web-hooks.ts"] },
+    "strict": true,
+    "target": "es2022",
+    "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": true
+  },
+  "exclude": ["./node_modules"],
+  "include": ["./web-hooks.ts", "./*/**.ts", "./*/**.js"]
+}

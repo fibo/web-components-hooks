@@ -1,0 +1,49 @@
+{
+  "name": "web-hooks",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "React-like hooks for WebComponents",
+  "license": "MIT",
+  "types": "./web-hooks.d.ts",
+  "exports": {
+    "import": "./web-hooks.js",
+    "types": "./web-hooks.d.ts"
+  },
+  "scripts": {
+    "build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
+    "check_types": "tsc",
+    "lint-staged": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fibo/web-hooks.git"
+  },
+  "keywords": [
+    "web-components",
+    "hooks"
+  ],
+  "author": {
+    "name": "Gianluca Casati",
+    "url": "https://fibo.github.io"
+  },
+  "devDependencies": {
+    "lint-staged": "^15.4.3",
+    "pre-commit": "^1.2.2",
+    "prettier": "^3.5.0",
+    "typescript": "^5.7.3"
+  },
+  "lint-staged": {
+    "*.{css,html,js,json,md,ts}": [
+      "prettier --write"
+    ]
+  },
+  "pre-commit": [
+    "build",
+    "check_types",
+    "lint-staged"
+  ],
+  "prettier": {
+    "trailingComma": "none",
+    "singleQuote": true
+  }
+}
