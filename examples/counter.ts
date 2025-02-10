@@ -1,5 +1,10 @@
-import { defineWebHooksElements, WebReducer } from 'web-hooks';
-const reducer = (state, action) => {
+import { defineWebHooksElements, Reducer, WebReducer } from 'web-hooks';
+
+type State = number;
+
+type Action = { type: 'INCREMENT' } | { type: 'DECREMENT' } | { type: 'RESET' };
+
+const reducer: Reducer<State, Action> = (state, action) => {
     console.log('action type', action.type);
     switch (action.type) {
         case 'INCREMENT':
@@ -12,17 +17,18 @@ const reducer = (state, action) => {
             return state;
     }
 };
+
 class CounterValue extends HTMLElement {
     static observedAttributes = [WebReducer.dataNonce];
-    output;
-    reducer;
+    output: HTMLElement;
+    reducer: WebReducer | undefined;
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         const template = document.createElement('template');
         template.innerHTML = `<output></output>`;
         this.shadowRoot?.appendChild(template.content.cloneNode(true));
-        this.output = this.shadowRoot?.querySelector('output');
+        this.output = this.shadowRoot?.querySelector('output') as HTMLElement;
     }
     connectedCallback() {
         this.reducer = WebReducer.findParent(this);
@@ -31,15 +37,16 @@ class CounterValue extends HTMLElement {
     disconnectedCallback() {
         this.reducer?.deleteSubscriber(this);
     }
-    attributeChangedCallback(name) {
+    attributeChangedCallback(name: string) {
         if (name === WebReducer.dataNonce) {
-            const count = this.reducer?.state;
+            const count = this.reducer?.state as State;
             this.output.textContent = String(count);
         }
     }
 }
+
 class CounterButton extends HTMLElement {
-    reducer;
+    reducer: WebReducer | undefined;
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -53,7 +60,7 @@ class CounterButton extends HTMLElement {
             ?.querySelector('button')
             ?.addEventListener('click', this);
     }
-    handleEvent(event) {
+    handleEvent(event: GlobalEventHandlersEventMap['click']) {
         if (event.type === 'click') {
             const action = this.getAttribute('action');
             if (action === 'increment')
@@ -61,10 +68,11 @@ class CounterButton extends HTMLElement {
         }
     }
 }
+
 addEventListener('load', () => {
     defineWebHooksElements();
     customElements.define('counter-button', CounterButton);
     customElements.define('counter-value', CounterValue);
-    const webReducer = document.querySelector('web-reducer');
+    const webReducer = document.querySelector('web-reducer') as WebReducer;
     webReducer.use(reducer, 0);
 });
