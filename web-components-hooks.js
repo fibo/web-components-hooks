@@ -1,5 +1,9 @@
 export class XContext extends HTMLElement {
     static localName = 'x-context';
+    static define() {
+        if (!customElements.get(XContext.localName))
+            customElements.define(XContext.localName, XContext);
+    }
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -11,6 +15,10 @@ export class XContext extends HTMLElement {
 export class XReducer extends HTMLElement {
     static localName = 'x-reducer';
     static dataNonce = 'data-x-reducer-nonce';
+    static define() {
+        if (!customElements.get(XReducer.localName))
+            customElements.define(XReducer.localName, XReducer);
+    }
     static findParent(initialElement) {
         let { parentElement: element } = initialElement;
         while (element) {
@@ -59,8 +67,6 @@ export class XReducer extends HTMLElement {
     }
 }
 export function defineHooksElements() {
-    if (!customElements.get(XContext.localName))
-        customElements.define(XContext.localName, XContext);
-    if (!customElements.get(XReducer.localName))
-        customElements.define(XReducer.localName, XReducer);
+    XContext.define();
+    XReducer.define();
 }

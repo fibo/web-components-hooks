@@ -1,5 +1,19 @@
 export class XContext extends HTMLElement {
     static localName = 'x-context';
+    /** Define x-context custom element
+     *
+     * @example Define x-context element on DOM load.
+     *
+     * import { XContext } from 'web-components-hooks';
+     *
+     * addEventListener('load', () => {
+     *     XContext.define();
+     * });
+     */
+    static define() {
+        if (!customElements.get(XContext.localName))
+            customElements.define(XContext.localName, XContext);
+    }
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -25,6 +39,20 @@ export type Reducer<
 export class XReducer extends HTMLElement {
     static localName = 'x-reducer';
     static dataNonce = 'data-x-reducer-nonce';
+    /** Define x-reducer custom element
+     *
+     * @example Define x-reducer element on DOM load.
+     *
+     * import { XReducer } from 'web-components-hooks';
+     *
+     * addEventListener('load', () => {
+     *     XReducer.define();
+     * });
+     */
+    static define() {
+        if (!customElements.get(XReducer.localName))
+            customElements.define(XReducer.localName, XReducer);
+    }
     static findParent(initialElement: HTMLElement) {
         let { parentElement: element } = initialElement;
         while (element) {
@@ -88,8 +116,6 @@ export class XReducer extends HTMLElement {
  * });
  */
 export function defineHooksElements() {
-    if (!customElements.get(XContext.localName))
-        customElements.define(XContext.localName, XContext);
-    if (!customElements.get(XReducer.localName))
-        customElements.define(XReducer.localName, XReducer);
+    XContext.define();
+    XReducer.define();
 }

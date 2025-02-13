@@ -1,4 +1,4 @@
-import { defineHooksElements, XReducer } from 'web-components-hooks';
+import { XReducer } from 'web-components-hooks';
 const reducer = (state, action) => {
     console.log('action type', action.type);
     switch (action.type) {
@@ -62,9 +62,9 @@ class CounterButton extends HTMLElement {
     }
 }
 addEventListener('load', () => {
-    defineHooksElements();
-    customElements.define('counter-button', CounterButton);
-    customElements.define('counter-value', CounterValue);
+    XReducer.define();
     const xReducer = document.querySelector('x-reducer');
     xReducer.use(reducer, 0);
+    customElements.define('counter-button', CounterButton);
+    customElements.define('counter-value', CounterValue);
 });

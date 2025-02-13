@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "npm run tsc:build && npm run tsc:examples",
+    "test": "npm run check_types",
     "tsc:build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
     "tsc:examples": "tsc --project tsconfig.examples.json",
     "check_types": "tsc",
