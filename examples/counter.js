@@ -1,6 +1,5 @@
 import { XReducer } from 'web-components-hooks';
 const reducer = (state, action) => {
-    console.log('action type', action.type);
     switch (action.type) {
         case 'INCREMENT':
             return state + 1;
@@ -9,6 +8,7 @@ const reducer = (state, action) => {
         case 'RESET':
             return 0;
         default:
+            console.warn('Unknown action type', action.type);
             return state;
     }
 };
@@ -56,8 +56,8 @@ class CounterButton extends HTMLElement {
     handleEvent(event) {
         if (event.type === 'click') {
             const action = this.getAttribute('action');
-            if (action === 'increment')
-                this.reducer?.dispatch({ type: 'INCREMENT' });
+            if (action)
+                this.reducer?.dispatch({ type: action });
         }
     }
 }

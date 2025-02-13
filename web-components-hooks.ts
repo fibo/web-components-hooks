@@ -23,18 +23,10 @@ export class XContext extends HTMLElement {
     }
 }
 
-// Stolen from sindresorhus/type-fest
-type JsonPrimitive = string | number | boolean | null;
-type JsonArray = JsonValue[] | readonly JsonValue[];
-type JsonObject = { [Key in string]: JsonValue } & {
-    [Key in string]?: JsonValue | undefined;
-};
-type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+type Action = any;
+type State = any;
 
-export type Reducer<
-    State extends JsonValue,
-    Action extends JsonValue & { type: string }
-> = (state: State, action: Action) => State;
+type Reducer = (state: State, action: Action) => State;
 
 export class XReducer extends HTMLElement {
     static localName = 'x-reducer';
@@ -64,11 +56,8 @@ export class XReducer extends HTMLElement {
             `Parent ${XReducer.localName} not found for ${initialElement}`
         );
     }
-    #state: JsonValue = null;
-    #reducer: Reducer<JsonValue, JsonValue & { type: string }> = (
-        state,
-        _action
-    ) => state;
+    #state: State | undefined;
+    #reducer: Reducer | undefined;
     #subscribers = new Set<HTMLElement>();
     #dataNonce = 0;
     constructor() {
@@ -78,18 +67,18 @@ export class XReducer extends HTMLElement {
         template.innerHTML = `<slot></slot>`;
         this.shadowRoot?.appendChild(template.content.cloneNode(true));
     }
-    use(reducer: any, initialState: JsonValue) {
+    use(reducer: Reducer, initialState: State) {
         this.#state = initialState;
         this.#reducer = reducer;
     }
     get nonce() {
         return String(this.#dataNonce);
     }
-    get state() {
+    get state(): State {
         return this.#state;
     }
-    dispatch(action: JsonValue & { type: string }) {
-        this.#state = this.#reducer(this.#state, action);
+    dispatch(action: Action) {
+        this.#state = this.#reducer?.(this.#state, action);
         this.#dataNonce++;
         const { nonce } = this;
         for (const subscriber of this.#subscribers) {

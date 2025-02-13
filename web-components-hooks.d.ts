@@ -13,20 +13,9 @@ export declare class XContext extends HTMLElement {
     static define(): void;
     constructor();
 }
-type JsonPrimitive = string | number | boolean | null;
-type JsonArray = JsonValue[] | readonly JsonValue[];
-type JsonObject = {
-    [Key in string]: JsonValue;
-} & {
-    [Key in string]?: JsonValue | undefined;
-};
-type JsonValue = JsonPrimitive | JsonObject | JsonArray;
-export type Reducer<
-    State extends JsonValue,
-    Action extends JsonValue & {
-        type: string;
-    }
-> = (state: State, action: Action) => State;
+type Action = any;
+type State = any;
+type Reducer = (state: State, action: Action) => State;
 export declare class XReducer extends HTMLElement {
     #private;
     static localName: string;
@@ -44,14 +33,10 @@ export declare class XReducer extends HTMLElement {
     static define(): void;
     static findParent(initialElement: HTMLElement): XReducer;
     constructor();
-    use(reducer: any, initialState: JsonValue): void;
+    use(reducer: Reducer, initialState: State): void;
     get nonce(): string;
-    get state(): JsonValue;
-    dispatch(
-        action: JsonValue & {
-            type: string;
-        }
-    ): void;
+    get state(): State;
+    dispatch(action: Action): void;
     addSubscriber(element: HTMLElement): void;
     deleteSubscriber(element: HTMLElement): void;
 }

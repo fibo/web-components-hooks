@@ -2,7 +2,7 @@
   "name": "web-components-hooks",
   "version": "0.1.0",
   "type": "module",
-  "description": "React-like hooks for WebComponents",
+  "description": "React-like hooks for Web Components",
   "license": "MIT",
   "homepage": "https://fibo.github.io/web-components-hooks",
   "types": "./web-components-hooks.d.ts",

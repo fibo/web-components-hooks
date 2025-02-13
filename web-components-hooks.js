@@ -22,15 +22,14 @@ export class XReducer extends HTMLElement {
     static findParent(initialElement) {
         let { parentElement: element } = initialElement;
         while (element) {
-            if (element.localName == XReducer.localName) return element;
+            if (element.localName == XReducer.localName)
+                return element;
             element = element.parentElement;
         }
-        throw new Error(
-            `Parent ${XReducer.localName} not found for ${initialElement}`
-        );
+        throw new Error(`Parent ${XReducer.localName} not found for ${initialElement}`);
     }
-    #state = null;
-    #reducer = (state, _action) => state;
+    #state;
+    #reducer;
     #subscribers = new Set();
     #dataNonce = 0;
     constructor() {
@@ -51,7 +50,7 @@ export class XReducer extends HTMLElement {
         return this.#state;
     }
     dispatch(action) {
-        this.#state = this.#reducer(this.#state, action);
+        this.#state = this.#reducer?.(this.#state, action);
         this.#dataNonce++;
         const { nonce } = this;
         for (const subscriber of this.#subscribers) {

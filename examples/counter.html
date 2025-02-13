@@ -18,12 +18,18 @@
         <x-reducer>
             <label>Counter: <counter-value></counter-value></label>
             <div>
-                <counter-button action="increment">Increment</counter-button>
-                <counter-button action="reset">Reset</counter-button>
-                <counter-button action="decrement">Decrement</counter-button>
+                <counter-button action="INCREMENT">Increment</counter-button>
+                <counter-button action="RESET">Reset</counter-button>
+                <counter-button action="DECREMENT">Decrement</counter-button>
             </div>
         </x-reducer>
 
+        <footer>
+            <a
+                href="https://github.com/fibo/web-components-hooks/blob/main/examples/counter.ts"
+                >source</a
+            >
+        </footer>
         <script type="module" src="./counter.js"></script>
     </body>
 </html>

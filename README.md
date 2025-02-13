@@ -1,3 +1,3 @@
-# x-hooks
+# Web Components hooks
 
 > React-like hooks for WebComponents

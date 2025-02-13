@@ -1,11 +1,6 @@
-import { Reducer, XReducer } from 'web-components-hooks';
+import { XReducer } from 'web-components-hooks';
 
-type State = number;
-
-type Action = { type: 'INCREMENT' } | { type: 'DECREMENT' } | { type: 'RESET' };
-
-const reducer: Reducer<State, Action> = (state, action) => {
-    console.log('action type', action.type);
+const reducer = (state: number, action: { type: string }) => {
     switch (action.type) {
         case 'INCREMENT':
             return state + 1;
@@ -14,6 +9,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
         case 'RESET':
             return 0;
         default:
+            console.warn('Unknown action type', action.type);
             return state;
     }
 };
@@ -31,6 +27,7 @@ class CounterValue extends HTMLElement {
         this.output = this.shadowRoot?.querySelector('output') as HTMLElement;
     }
     connectedCallback() {
+        // Find reducer and subscribe.
         this.reducer = XReducer.findParent(this);
         this.reducer.addSubscriber(this);
     }
@@ -39,7 +36,7 @@ class CounterValue extends HTMLElement {
     }
     attributeChangedCallback(name: string) {
         if (name === XReducer.dataNonce) {
-            const count = this.reducer?.state as State;
+            const count = this.reducer?.state;
             this.output.textContent = String(count);
         }
     }
@@ -55,6 +52,8 @@ class CounterButton extends HTMLElement {
         this.shadowRoot?.appendChild(template.content.cloneNode(true));
     }
     connectedCallback() {
+        // Find reducer.
+        // No need to subscribe cause button will only dispatch.
         this.reducer = XReducer.findParent(this);
         this.shadowRoot
             ?.querySelector('button')
@@ -63,16 +62,17 @@ class CounterButton extends HTMLElement {
     handleEvent(event: GlobalEventHandlersEventMap['click']) {
         if (event.type === 'click') {
             const action = this.getAttribute('action');
-            if (action === 'increment')
-                this.reducer?.dispatch({ type: 'INCREMENT' });
+            if (action) this.reducer?.dispatch({ type: action });
         }
     }
 }
 
 addEventListener('load', () => {
+    // Define and initialize reducer.
     XReducer.define();
     const xReducer = document.querySelector('x-reducer') as XReducer;
     xReducer.use(reducer, 0);
+    // Define other custom elements.
     customElements.define('counter-button', CounterButton);
     customElements.define('counter-value', CounterValue);
 });
