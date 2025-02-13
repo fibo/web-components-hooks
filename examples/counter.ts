@@ -71,8 +71,8 @@ class CounterButton extends HTMLElement {
 
 addEventListener('load', () => {
     defineHooksElements();
-    customElements.define('counter-button', CounterButton);
-    customElements.define('counter-value', CounterValue);
     const xReducer = document.querySelector('x-reducer') as XReducer;
     xReducer.use(reducer, 0);
+    customElements.define('counter-button', CounterButton);
+    customElements.define('counter-value', CounterValue);
 });

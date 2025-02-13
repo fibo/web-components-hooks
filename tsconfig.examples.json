@@ -3,13 +3,13 @@
     "noEmit": false,
     "outDir": ".",
     // To build stripped JS, but emit declarations with JSDoc preserved:
-    // disable comments and declaration, then in package.json add a script like
+    // disable comments and declaration, then in package.json add script
     //
     //     "build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
     //
-    "removeComments": false,
+    "removeComments": true,
     "declaration": false
   },
   "extends": "./tsconfig.json",
-  "exclude": ["./examples/", "./test/"]
+  "exclude": ["./web-components-hooks.ts", "./test/"]
 }

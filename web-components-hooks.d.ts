@@ -23,6 +23,7 @@ export declare class XReducer extends HTMLElement {
     static findParent(initialElement: HTMLElement): XReducer;
     constructor();
     use(reducer: any, initialState: JsonValue): void;
+    get nonce(): string;
     get state(): JsonValue;
     dispatch(
         action: JsonValue & {

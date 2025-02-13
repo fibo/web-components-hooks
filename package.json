@@ -11,7 +11,9 @@
     "types": "./web-components-hooks.d.ts"
   },
   "scripts": {
-    "build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
+    "build": "npm run tsc:build && npm run tsc:examples",
+    "tsc:build": "tsc --removeComments --project tsconfig.build.json && tsc --declaration --emitDeclarationOnly --project tsconfig.build.json",
+    "tsc:examples": "tsc --project tsconfig.examples.json",
     "check_types": "tsc",
     "lint-staged": "lint-staged"
   },

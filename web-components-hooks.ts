@@ -54,19 +54,23 @@ export class XReducer extends HTMLElement {
         this.#state = initialState;
         this.#reducer = reducer;
     }
+    get nonce() {
+        return String(this.#dataNonce);
+    }
     get state() {
         return this.#state;
     }
     dispatch(action: JsonValue & { type: string }) {
         this.#state = this.#reducer(this.#state, action);
         this.#dataNonce++;
-        const nonce = String(this.#dataNonce);
+        const { nonce } = this;
         for (const subscriber of this.#subscribers) {
             subscriber.dataset.xReducerNonce = nonce;
         }
     }
     addSubscriber(element: HTMLElement) {
         this.#subscribers.add(element);
+        element.dataset.xReducerNonce = this.nonce;
     }
     deleteSubscriber(element: HTMLElement) {
         this.#subscribers.delete(element);
@@ -75,7 +79,7 @@ export class XReducer extends HTMLElement {
 
 /** Define web-components-hooks custom elements.
  *
- * @example Define hooks elements on DOM load.
+ * @example Define all hooks elements on DOM load.
  *
  * import { defineHooksElements } from 'web-components-hooks';
  *
